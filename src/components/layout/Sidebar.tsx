@@ -16,6 +16,7 @@ import {
   DollarSign, 
   ShieldAlert,
   Zap,
+  Terminal,
   Menu,
   X
 } from 'lucide-react';
@@ -68,6 +69,13 @@ export const Sidebar: React.FC = () => {
       icon: Building2,
       badge: '300+ Brands',
       badgeColor: 'bg-slate-700/60 text-slate-300 border-slate-600/40',
+    },
+    {
+      label: 'AI Evals Bench',
+      href: '/evals',
+      icon: Terminal,
+      badge: '10 Cases',
+      badgeColor: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
     },
     {
       label: 'Settings & Data',

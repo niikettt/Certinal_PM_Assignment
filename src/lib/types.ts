@@ -124,6 +124,7 @@ export interface PricingResult {
   exclusivity_multiplier: number;
   rush_multiplier: number;
   has_low_er_anomaly: boolean;
+  is_thin_data?: boolean;
   anomaly_warning?: string;
   evidence_ids: string[];
   rationale_summary: string;

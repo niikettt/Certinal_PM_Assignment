@@ -93,15 +93,17 @@ export function calculateDeterministicPricing(input: RateCalculationInput): Pric
   // 10. Turnaround Rush Multiplier
   const rushMultiplier = isRush ? 1.30 : 1.0;
 
-  // 11. Target Fair Market calculation
+  // 11. Range calculation (SRS Section 6.2: ±25%, widened to ±35% if fewer than 10 posts)
+  const isThinData = recentPosts.length < 10;
+  const lowMultiplier = isThinData ? 0.65 : 0.75; // -35% vs -25%
+  const highMultiplier = isThinData ? 1.35 : 1.25;
+
   const calculatedTarget = Math.round(
     rawTotal * usageMultiplier * exclusivityMultiplier * rushMultiplier
   );
-
-  // Round to friendly nearest $10 or ₹500
   const fairMarket = Math.max(50, Math.round(calculatedTarget / 10) * 10);
-  const conservative = Math.max(40, Math.round((fairMarket * 0.75) / 10) * 10);
-  const aggressive = Math.max(65, Math.round((fairMarket * 1.35) / 10) * 10);
+  const conservative = Math.max(40, Math.round((fairMarket * lowMultiplier) / 10) * 10);
+  const aggressive = Math.max(65, Math.round((fairMarket * highMultiplier) / 10) * 10);
 
   const evidence_ids = [
     `EVID_PLAYS_${realizedPlays}`,
@@ -111,8 +113,11 @@ export function calculateDeterministicPricing(input: RateCalculationInput): Pric
     `EVID_USAGE_${usageRights}`,
     `EVID_EXCLUSIVITY_${exclusivityDays}D`,
   ];
+  if (isThinData) {
+    evidence_ids.push('EVID_THIN_DATA_WIDENED_35PCT');
+  }
 
-  const rationale_summary = `Based on ${realizedPlays.toLocaleString()} median realized plays at a $${cpm} niche CPM baseline for ${niche}. Creator engagement factor is ${engagementMultiplier}x (${actualER}% vs ${benchmarkER}% benchmark). Deliverable coefficients: ${deliverablesUnits.toFixed(1)} units with ${usageRights} usage (${usageMultiplier}x).`;
+  const rationale_summary = `Based on ${realizedPlays.toLocaleString()} median realized plays at a $${cpm} niche CPM baseline for ${niche}. Creator engagement factor is ${engagementMultiplier}x (${actualER}% vs ${benchmarkER}% benchmark). Deliverable coefficients: ${deliverablesUnits.toFixed(1)} units with ${usageRights} usage (${usageMultiplier}x).${isThinData ? ' [Limited historical data: Confidence range widened to ±35%]' : ''}`;
 
   return {
     conservative,
@@ -125,6 +130,7 @@ export function calculateDeterministicPricing(input: RateCalculationInput): Pric
     exclusivity_multiplier: exclusivityMultiplier,
     rush_multiplier: rushMultiplier,
     has_low_er_anomaly: hasLowERAnomaly,
+    is_thin_data: isThinData,
     anomaly_warning: anomalyWarning,
     evidence_ids,
     rationale_summary,

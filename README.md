@@ -39,11 +39,27 @@
    - Real-time revenue tally (Settled CMR, In Delivery, and Active Pipeline).
    - Stage progression controls with celebration confetti.
 
-5. **Curated Brand Shortlist (`/brands`)**:
+5. **AI Evals & Guardrails Test Bench (`/evals`) — 10 COMPLETE CASES**:
+   - Interactive testing suite executing all 10 specification evals in real-time.
+   - **3 Hard Release-Blocking Cases**:
+     - `EVAL-01`: Low-engagement high-follower valuation cap (Meera 85k @ 0.22% ER -> clamped to realized views).
+     - `EVAL-02`: Commercial caption mandatory FTC disclosure auto-injection (`#ad` / `[Paid Partnership]`).
+     - `EVAL-03`: Post autopsy honest uncertainty protocol (`verdict_reason: "no_clear_cause"` with zero shadowbans).
+   - **7 Core Domain Evals**:
+     - `EVAL-04`: Extreme 3s hook drop-off outlier (>50% lost at second 3 -> `EVID_HOOK_DROPOFF_54`).
+     - `EVAL-05`: Off-peak publication timing anomaly (23:45 UTC vs 18:00 UTC median -> `EVID_POST_HOUR_23`).
+     - `EVAL-06`: Compounding deliverable multipliers bundle (90-day ads 1.5x * 30d exclusivity 1.2x * rush 1.3x).
+     - `EVAL-07`: Grounded cold brand pitch without fabricated proof (Guardrail G4).
+     - `EVAL-08`: Lowball offer negotiation counter-script with descoping paths.
+     - `EVAL-09`: Anti-platform gaming & follower pods rejection (Guardrail G5).
+     - `EVAL-10`: Thin data cold start confidence interval widening (fewer than 10 posts -> ±35% range).
+   - Filterable by Category & Hard status with live assertion checklists, latency ms, and evidence citations.
+
+6. **Curated Brand Shortlist (`/brands`)**:
    - Pre-vetted sponsor directory filterable by niche (Fitness, Tech, Fashion, Lifestyle, Beauty) and budget tier.
    - 1-Click "Pitch with AI" pre-filling campaign scopes.
 
-6. **Settings & Creator Data Ownership (`/settings`)**:
+7. **Settings & Creator Data Ownership (`/settings`)**:
    - 2-Tap data purge and OAuth token revocation (FR-1.5 GDPR / DPDP Article 17 compliance).
    - Clean JSON export of all creator records and deals.
    - Inference mode toggle (Zero-Config Smart Streamer or Bring Your Own Key for Claude 3.5 Sonnet / GPT-4o).

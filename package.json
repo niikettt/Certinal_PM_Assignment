@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test:math": "node scripts/test-engine.mjs"
+    "test:math": "node scripts/test-engine.mjs",
+    "test:evals": "npx tsx scripts/run-evals.mjs",
+    "test": "npx tsx scripts/run-evals.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",
